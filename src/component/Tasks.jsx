@@ -2,16 +2,17 @@ import Task from "./Task";
 
 
 
-const Tasks = ({tasks, onDelete, toggleReminder})=>{
-   
-
-
-    return(
+const Tasks = ({tasks})=>{
+  
+    console.log(tasks);
+  return(
         <>
-        
-        {tasks.map((task)=>(
-            <Task key='task.id' eachTask={task} onDelete={onDelete} toggleReminder={toggleReminder}/>
-        ))}
+        {tasks && tasks.map((task)=>(
+                <Task key={task.id} eachTask={task} id={task.id}/>
+            ))
+        }
         </>
     )
-}; export default Tasks;
+    
+} 
+export default Tasks;
