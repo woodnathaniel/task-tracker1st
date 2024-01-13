@@ -1,8 +1,6 @@
 import Button from './Button';
 
-
 const Header = (props) =>{
-    
     return(
         <div className='header'>
             <p className='profile-name'>{props.name}</p>
@@ -10,7 +8,5 @@ const Header = (props) =>{
             <Button />
         </div>
     )
-
-   
 };export default Header;
 
