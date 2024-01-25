@@ -5,11 +5,14 @@ import TaskAdd from './TaskAdd';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { db } from './firebase/firebaseConfig';
 import { useSelector } from 'react-redux';
+import IsLoading from './component/IsLoading';
 
 
 function App() {
 
   const [docs, setDocs] = useState([]);
+  const [docId, setdDocId] = useState([])
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(()=>{
     
@@ -19,15 +22,18 @@ function App() {
             const unsubscribe = onSnapshot(q, (querySnapshot) => {
     
                 const data = [];
+                // const docId = [];
                 querySnapshot.forEach((doc) => {
-                   console.log(doc);
-                    const objects = doc._document.data.value.mapValue.fields
-                    data.push(objects);
-                    console.log(objects);
+                    console.log(doc);
+                    // const objects = doc._document.data.value.mapValue.fields
+                    data.push(doc);
+                    // docId.push(doc);
+                    // console.log(objects);
                     
                 });
+                // setdDocId(docId)
                 setDocs(data);
-                console.log(data);
+                setIsLoading(false)
               }
               
             );
@@ -36,31 +42,7 @@ function App() {
     }
     UseFirestoreRetrieveData()
   },[])
-  
-
-    // const dispatch = useDispatch()
-    // const deleteTask = (id)=>{
-    //   dispatch(taskActions.setTask, id)
-    // }
-
-    // const onToggle =(id)=>{
-    //   return(
-    //     setTasks(
-    //       tasks.map((task) => task.id ===id ? 
-    //       {...task, reminder: !task.reminder} : task )
-    //     )
-    //   )
-    // }
-    // toggleReminder={onToggle}
-    // useEffect(() => {
-
-      
-    //   
-    //   console.log(docs)
-
-   
-    // }, [docs]);
-   
+     
     const tasks = useSelector((state)=>(state.task.tasks))
     
     const charles = useSelector((state)=>(state.task.setState))
@@ -69,12 +51,11 @@ function App() {
 
   return (
     <div className="container">
-      <Header title={'Task Tracker'} name={'WOOD'}/>
-      {!charles && <TaskAdd />}
-        {
+        <Header title={'Task Tracker'} name={'WOOD'}/>
+        {!charles && <TaskAdd />}
+        { isLoading ? <div className='isloaing'><IsLoading /></div> : 
           docs.length  > 0 ? <Tasks tasks={docs} />
            : <h2 style={{color:'red'}}>No Task on board</h2>
-          
         }   
     </div>
   )

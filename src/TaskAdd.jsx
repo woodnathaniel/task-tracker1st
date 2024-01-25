@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import './taskAdd.css'
 import {  collection, addDoc } from "firebase/firestore"; 
 import { db } from "./firebase/firebaseConfig";
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
 
 
@@ -11,9 +13,6 @@ const TaskAdd = () => {
    
     const UseFirestore  = async (props)=>{
      
-      console.log(props);
-    
-      if(props.length === 0){
         try {
           const docRef = await addDoc(collection(db, "todo"), {
            
@@ -22,15 +21,9 @@ const TaskAdd = () => {
             date: new Date()
           });
           console.log("Document written with ID: ", docRef.id);
-          alert(docRef.id) 
         } catch (e) {
-          console.error("Error adding document: ", e);
-          alert(e)
+          
         } 
-      }else{
-        alert('empty fields are allowed')
-      }
-       
     }
 
     const handleSubmit = (e)=>{

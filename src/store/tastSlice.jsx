@@ -35,16 +35,16 @@ export const taskSlice = createSlice({
 
       },
       reducers :{
-        setState(state){
-          state.setState = !state.setState;
-          console.log(state);
-        },
+          setState(state){
+            state.setState = !state.setState;
+            console.log(state);
+          },
 
-        setTask(state, action){
-            const id = action.payload
-            console.log(id)
-            state.tasks = state.tasks.filter(task => task.id !== id)
-        }
+          setTask(state, action){
+              const id = action.payload
+              console.log(id)
+              state.tasks = state.tasks.filter(task => task.id !== id)
+          }
         }
   })
 
